@@ -1,0 +1,48 @@
+# --- OUTPUT / BUILD ---
+/dist
+/tmp
+/out-tsc
+/bazel-out
+
+# --- NODE ---
+/node_modules
+npm-debug.log*
+yarn-error.log*
+
+# --- ANGULAR CACHE ---
+/.angular/cache
+/.angular/cache
+
+# --- ENV FILES (seguridad, si usas env.prod.ts también) ---
+src/environments/environment*.ts
+
+# --- IDEs and editors ---
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# --- VS Code ---
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# --- Firebase local config ---
+.firebase/
+.firebaserc
+
+# --- Coverage, testing ---
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+/test-output
+
+# --- System files ---
+.DS_Store
+Thumbs.db

@@ -1,0 +1,85 @@
+<!-- Loader -->
+<div *ngIf="loading" class="flex flex-col items-center justify-center h-96">
+    <img src="assets/loader.gif" class="w-64 h-64 mb-4">
+    <p class="text-white text-lg">Preparando tu menú...</p>
+</div>
+
+<!-- Contenido cargado -->
+<div *ngIf="!loading" class="space-y-6">
+    <!-- Título y macronutrientes resumen -->
+    <div>
+        <h2 class="text-3xl font-bold mb-4">{{ wizardService.data.personalInfo?.nombre }}, ¡tenemos tu menú!</h2>
+
+        <div class="flex items-center justify-between bg-gray-800">
+            <div class="text-left">
+                <div class="flex items-center space-x-2">
+                    <span class="text-2xl">🔥</span>
+                    <span class="text-2xl font-semibold">Calorías diarias: {{ data.total.calorias }}</span>
+                </div>
+            </div>
+
+            <div class="flex space-x-6">
+                <div class="flex flex-col items-center">
+                    <span class="text-xl">🍗</span>
+                    <span>{{ data.total.proteinas }}g</span>
+                    <span class="text-xs">Proteínas</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-xl">🍞</span>
+                    <span>{{ data.total.carbohidratos }}g</span>
+                    <span class="text-xs">Carbohidratos</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <span class="text-xl">🥑</span>
+                    <span>{{ data.total.grasas }}g</span>
+                    <span class="text-xs">Grasas</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards de comidas -->
+    <div class="grid grid-cols-1 gap-4">
+        <div *ngFor="let comida of comidas; let i = index"
+            class="flex justify-between items-center p-4 rounded-lg border border-gray-500 hover:border-blue-600 bg-gray-800 hover:bg-gray-700 transition cursor-pointer"
+            (click)="onClickCard(comida.key)">
+            <div>
+                <h3 class="text-xl font-bold">{{ comida.label }} (🔥{{comida.data.nutricion.calorias | number:'1.0-0'}})</h3>
+                <p class="text-sm text-gray-300">{{ comida.data.titulo }}</p>
+            </div>
+
+            <div class="flex space-x-4">
+                <div class="flex flex-col items-center">
+                    <svg class="w-10 h-10 -rotate-90" viewBox="0 0 36 36">
+                        <circle class="text-gray-600" stroke="currentColor" stroke-width="4" fill="transparent" r="16"
+                            cx="18" cy="18" />
+                        <circle [attr.stroke-dasharray]="(comida.data.nutricion.proteinas*100)/getRequerimiento(comida.key, 'proteinas') + ', 100'"
+                            [ngClass]="getRingColor('proteina')" stroke-width="4" fill="transparent" r="16" cx="18"
+                            cy="18" class="transition-all duration-500" stroke-linecap="round" />
+                    </svg>
+                    <span class="text-xs mt-1">{{ comida.data.nutricion.proteinas | number:'1.0-0' }}g </span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <svg class="w-10 h-10 -rotate-90" viewBox="0 0 36 36">
+                        <circle class="text-gray-600" stroke="currentColor" stroke-width="4" fill="transparent" r="16"
+                            cx="18" cy="18" />
+                        <circle [attr.stroke-dasharray]="(comida.data.nutricion.carbohidratos*100)/getRequerimiento(comida.key, 'carbohidratos') + ', 100'"
+                            [ngClass]="getRingColor('carbohidrato')" stroke-width="4" fill="transparent" r="16" cx="18"
+                            cy="18" class="transition-all duration-500" stroke-linecap="round" />
+                    </svg>
+                    <span class="text-xs mt-1">{{ comida.data.nutricion.carbohidratos | number:'1.0-0' }}g</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <svg class="w-10 h-10 -rotate-90" viewBox="0 0 36 36">
+                        <circle class="text-gray-600" stroke="currentColor" stroke-width="4" fill="transparent" r="16"
+                            cx="18" cy="18" />
+                        <circle [attr.stroke-dasharray]="(comida.data.nutricion.grasas*100)/getRequerimiento(comida.key, 'grasas') + ', 100'"
+                            [ngClass]="getRingColor('grasa')" stroke-width="4" fill="transparent" r="16" cx="18" cy="18"
+                            class="transition-all duration-500" stroke-linecap="round" />
+                    </svg>
+                    <span class="text-xs mt-1">{{ comida.data.nutricion.grasas | number:'1.0-0' }}g</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

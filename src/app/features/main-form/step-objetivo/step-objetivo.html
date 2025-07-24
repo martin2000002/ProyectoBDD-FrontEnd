@@ -1,0 +1,60 @@
+<div *ngIf="loading" class="flex flex-col items-center justify-center h-64">
+  <img src="assets/loader.gif" class="w-64 h-64 mb-4">
+</div>
+
+<div *ngIf="!loading" class="flex flex-col space-y-4">
+    <h2 class="text-2xl font-semibold mb-4">Selecciona tu Objetivo y Distribución de Macronutrientes</h2>
+  
+    <div class="flex space-x-4">
+      
+      <!-- Objetivos -->
+      <div class="flex-1 flex flex-col space-y-2">
+        <h3 class="text-xl mb-2 font-semibold">Objetivo</h3>
+  
+        <button
+          *ngFor="let objetivo of objetivos"
+          (click)="selectObjetivo(objetivo.nemonico)"
+          class="w-full flex items-center space-x-4 p-4 rounded-lg transition border text-left"
+          [ngClass]="{
+            'bg-blue-600 border-blue-600 hover:bg-blue-700': objetivoSeleccionado === objetivo.nemonico,
+            'bg-gray-800 border-gray-600 hover:border-blue-600 hover:bg-gray-700': objetivoSeleccionado !== objetivo.nemonico
+          }"
+        >
+          <div class="text-2xl">
+            {{ objetivo.parametro1 }}
+          </div>
+          <div class="flex-1">
+            <span class="font-medium text-white">{{ objetivo.nombre }}</span>
+          </div>
+        </button>
+  
+      </div>
+  
+      <!-- Distribución -->
+      <div class="flex-1 flex flex-col space-y-2">
+        <h3 class="text-xl mb-2 font-semibold">Distribución</h3>
+  
+        <button
+          *ngFor="let distribucion of distribuciones"
+          (click)="selectDistribucion(distribucion.nemonico)"
+          [disabled]="!objetivoSeleccionado"
+          class="w-full flex items-center space-x-4 p-4 rounded-lg transition border text-left"
+          [ngClass]="{
+            'bg-blue-600 border-blue-600 hover:bg-blue-700': distribucionSeleccionada === distribucion.nemonico,
+            'bg-gray-800 border-gray-600 hover:border-blue-600 hover:bg-gray-700': distribucionSeleccionada !== distribucion.nemonico,
+            'opacity-50 cursor-not-allowed': !objetivoSeleccionado
+          }"
+        >
+          <div class="text-2xl">
+            {{ distribucion.parametro1 }}
+          </div>
+          <div class="flex-1">
+            <span class="font-medium text-white">{{ distribucion.nombre }}</span>
+          </div>
+        </button>
+  
+      </div>
+  
+    </div>
+  </div>
+  

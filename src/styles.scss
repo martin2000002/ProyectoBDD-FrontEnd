@@ -1,0 +1,41 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+/* Scrollbar para navegadores basados en Webkit */
+::-webkit-scrollbar {
+    width: 10px; /* más delgado, como Apple */
+    height: 6px; /* para scroll horizontal */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent; /* sin color */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.25); /* negro con transparencia */
+    border-radius: 10px;
+    border: 1.5px solid transparent; /* para que no toque el borde */
+    background-clip: content-box;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Hover más oscuro */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.35);
+  }
+  
+  /* Ocultar botones de flecha (arriba y abajo) */
+  ::-webkit-scrollbar-button {
+    display: none;
+  }
+  
+  /* También oculta flechas en algunos navegadores */
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+  
+  
+  *::-webkit-scrollbar-thumb:hover {
+    scrollbar-color: rgba(0, 0, 0, 0.35) transparent;
+  }
+  

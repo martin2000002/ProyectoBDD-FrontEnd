@@ -1,0 +1,78 @@
+<div class="flex flex-col space-y-4 w-full">
+
+  <h2 class="text-2xl font-semibold mb-6 text-white">Información Personal</h2>
+
+  <form [formGroup]="personalForm" class="flex flex-col space-y-4 w-full">
+
+    <!-- Nombre -->
+    <div class="flex flex-col">
+      <label for="nombre" class="text-white mb-1 font-medium">Nombre</label>
+      <input id="nombre" type="text" formControlName="nombre"
+        [class.border-red-500]="personalForm.get('nombre')?.invalid && personalForm.get('nombre')?.touched"
+        class="rounded-md bg-gray-900 text-white border border-gray-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 placeholder-gray-400"
+        placeholder="Tu nombre" />
+      <small class="text-red-500 mt-1">{{ getErrorMessage('nombre') }}</small>
+    </div>
+
+    <!-- Género y Edad -->
+    <div class="flex space-x-4">
+      <div class="flex flex-col flex-1">
+        <label for="genero" class="text-white mb-1 font-medium">Género</label>
+        <div class="relative">
+          <select id="genero" formControlName="genero" [ngClass]="{
+    'text-gray-400': !personalForm.get('genero')?.value,
+    'text-white': personalForm.get('genero')?.value,
+    'border-red-500': personalForm.get('genero')?.invalid && personalForm.get('genero')?.touched
+  }" class="appearance-none w-full rounded-md bg-gray-900 border border-gray-600 px-3 py-2 h-[42px] focus:outline-none focus:ring-2 focus:ring-blue-600 pr-10">
+            <option value="" disabled selected>Selecciona tu género</option>
+            <option *ngFor="let genero of generos" [value]="genero.nemonico">{{ genero.nombre }}</option>
+          </select>
+          <svg class="w-4 h-4 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none"
+            fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+
+        <small class="text-red-500 mt-1">{{ getErrorMessage('genero') }}</small>
+      </div>
+
+      <div class="flex flex-col flex-1">
+        <label for="edad" class="text-white mb-1 font-medium">Edad (en años)</label>
+        <input id="edad" type="number" formControlName="edad" min="0" max="120"
+          [class.border-red-500]="personalForm.get('edad')?.invalid && personalForm.get('edad')?.touched"
+          class="rounded-md bg-gray-900 text-white border border-gray-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 placeholder-gray-400"
+          placeholder="Ej: 30" />
+        <small class="text-red-500 mt-1">{{ getErrorMessage('edad') }}</small>
+      </div>
+    </div>
+
+    <!-- Altura y Peso -->
+    <div class="flex space-x-4">
+      <div class="flex flex-col flex-1">
+        <label for="altura" class="text-white mb-1 font-medium">Altura (en cm)</label>
+        <input id="altura" type="number" formControlName="altura" min="30" max="300"
+          [class.border-red-500]="personalForm.get('altura')?.invalid && personalForm.get('altura')?.touched"
+          class="rounded-md bg-gray-900 text-white border border-gray-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 placeholder-gray-400"
+          placeholder="Ej: 175" />
+        <small class="text-red-500 mt-1">{{ getErrorMessage('altura') }}</small>
+      </div>
+
+      <div class="flex flex-col flex-1">
+        <label for="peso" class="text-white mb-1 font-medium">Peso (en kg)</label>
+        <input id="peso" type="number" formControlName="peso" min="1" max="500"
+          [class.border-red-500]="personalForm.get('peso')?.invalid && personalForm.get('peso')?.touched"
+          class="rounded-md bg-gray-900 text-white border border-gray-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 placeholder-gray-400"
+          placeholder="Ej: 70" />
+        <small class="text-red-500 mt-1">{{ getErrorMessage('peso') }}</small>
+      </div>
+    </div>
+
+  </form>
+
+  <button (click)="tryCompleteStep()"
+    class="self-end mt-4 px-4 py-2 rounded bg-blue-600 hover:bg-blue-700 transition focus:outline-none text-white"
+    [ngClass]="{ 'opacity-50': personalForm.invalid }">
+    Continuar
+  </button>
+
+</div>

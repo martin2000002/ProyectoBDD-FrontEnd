@@ -1,0 +1,44 @@
+<app-modal></app-modal>
+
+<div class="min-h-screen bg-gray-900 text-white flex flex-col items-center p-6">
+
+  <!-- Barra de progreso -->
+  <div class="flex space-x-4 mb-4">
+    <button *ngFor="let step of [0,1,2,3]" (click)="goToStep(step)"
+      class="w-12 h-12 rounded-full flex items-center justify-center border-2 transition-colors duration-300 cursor-pointer"
+      [ngClass]="{
+          'bg-blue-600 border-blue-600': currentStep === step,
+          'border-gray-600 hover:border-blue-600': currentStep !== step
+        }" [disabled]="!completedSteps.includes(step) && step !== currentStep"
+      [attr.aria-label]="'Paso ' + (step + 1)">
+      {{step + 1}}
+    </button>
+  </div>
+
+  <!-- Contenedor de contenido dinámico -->
+  <div class="flex flex-col flex-grow justify-center items-center w-full">
+    <div class="w-3/5 bg-gray-800 rounded-lg p-6 shadow-lg">
+
+      <div *ngIf="currentStep === 0" class="animate-fade-scale-in">
+        <app-step-personal-info (completed)="onStepCompleted()"></app-step-personal-info>
+      </div>
+
+      <!-- Paso 1 -->
+      <div *ngIf="currentStep === 1" class="animate-fade-scale-in">
+        <app-step-actividad (completed)="onStepCompleted()"></app-step-actividad>
+      </div>
+
+      <!-- Paso 2 -->
+      <div *ngIf="currentStep === 2" class="animate-fade-scale-in">
+        <app-step-objetivo (completed)="onStepCompleted()"></app-step-objetivo>
+      </div>
+
+      <!-- Paso 3 -->
+      <div *ngIf="currentStep === 3" class="animate-fade-scale-in">
+        <app-step-resumen></app-step-resumen>
+      </div>
+
+    </div>
+  </div>
+
+</div>
